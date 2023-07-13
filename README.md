@@ -1,11 +1,11 @@
 # SiPM Geant4 code
 ## Table of contents
 * [Introduction](#Introduction)
-* [Structure](#technologies)
-* [Setup](#setup)
+* [Structure](#Structure)
+* [Setup](#Setup)
 
 ## Introduction
-This project is an attempt to have a standalone code to easly drop in GEANT4 simulation a SiPM.
+This project is an attempt to have a standalone code to easily drop in GEANT4 simulation a SiPM.
 
 The SiPMSD will save incoming particles and will kill them after storing the informations.
 
@@ -90,7 +90,8 @@ file(GLOB sources
     ...
     ${PROJECT_SOURCE_DIR}/SiPM/src/*.cc
     ...
-    ${PROJECT_SOURCE_DIR}/src/*.cc)
+    ${PROJECT_SOURCE_DIR}/src/*.cc
+)
 
 file(GLOB headers 
     ...
@@ -98,4 +99,25 @@ file(GLOB headers
     ...
     ${PROJECT_SOURCE_DIR}/inc/*.hh
 )
+```
+
+At this point you need to ` #include "SiPMSD.hh" `
+and create the geometry (will be included in coming version)
+
+As usal you need to connect the SD to the logical volume
+```
+...
+
+auto sdManager = G4SDManager::GetSDMpointer();
+G4String SDname;
+
+...
+
+if(sipmLogicVolume){
+	SiPMSD * sipmSD = new SiPMSD("sipmName");
+	sdManager->AddNewDetector(sipmSD);
+	sipmLogicVolume->SetSensitiveDetector(sipmSD);
+}
+...
+
 ```
