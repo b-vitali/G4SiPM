@@ -21,7 +21,7 @@
 
 //? Setup
 TString filename = "output";
-int     NEvents  = 2;
+int     NEvents  = 10;
 bool    save     = true;
 bool    print    = false;
 bool    verbose  = false;
@@ -270,9 +270,9 @@ int SiPM_Waveform(){
 
     running_print(                "File name   : " + filename);
     running_print(TString::Format("N Events    : %d", NEvents));
-    running_print(TString::Format("Save waves  : %d", save));
-    running_print(TString::Format("Debug       : %d", print));
-    running_print(TString::Format("Verbose     : %d", verbose));
+    running_print(TString::Format("Save waves  : %s", save ? "true" : "false"));
+    running_print(TString::Format("Debug       : %s", print ? "true" : "false"));
+    running_print(TString::Format("Verbose     : %s", verbose ? "true" : "false"));
     running_print(TString::Format("PDE         : %.2f", PDE));
     running_print(TString::Format("Threshold   : %.2f", thr));
     running_print(TString::Format("Time window : [%.0f, %.0f] ns", tmin, tmax));
