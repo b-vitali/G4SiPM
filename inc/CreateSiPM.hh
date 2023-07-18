@@ -37,7 +37,7 @@ class CreateSiPM
         virtual ~CreateSiPM();
 
 		//? Main function
-        void Create(G4LogicalVolume * hLogicWorld);					// This calls the private functions
+        G4LogicalVolume* Create(G4LogicalVolume * hLogicWorld);					// This calls the private functions
 	
 		//? Function to write the data out
 		void CreateNTuples();										// Create NTuple (to be called in EventAction)

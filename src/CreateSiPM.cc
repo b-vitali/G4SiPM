@@ -21,13 +21,14 @@ CreateSiPM::CreateSiPM(G4String Name)
 CreateSiPM :: ~CreateSiPM()
 {}
 
-void CreateSiPM::Create(G4LogicalVolume * LogicWorld)
+G4LogicalVolume* CreateSiPM::Create(G4LogicalVolume * LogicWorld)
 {
 	hLogicWorld = LogicWorld;
 	Materials();
 	OpticalProperties();
 	Volumes();
 	SD();
+	return hLogicRead;
 }
 
 void CreateSiPM::Materials()
@@ -174,12 +175,11 @@ void CreateSiPM::Volumes()
     G4ThreeVector Grease_pos = G4ThreeVector(0, 0, (0.5*0.5*hReadSizeZ)); 
     G4ThreeVector SiPM_pos = G4ThreeVector(0, 0, -0.5*0.5*hReadSizeZ);
 	
-	hPhysRead 	= new G4PVPlacement(0, G4ThreeVector(0, 0, 0), hLogicRead, "Read", hLogicWorld, true, 0, hCheckOverlaps);
-	hPhysGrease 	= new G4PVPlacement(0, Grease_pos , hLogicGrease, "Grease", hLogicRead, false, hCheckOverlaps);
+	//hPhysRead 	= new G4PVPlacement(0, G4ThreeVector(0, 0, 0), hLogicRead, "Read", hLogicWorld, true, 0, hCheckOverlaps);
+	hPhysGrease = new G4PVPlacement(0, Grease_pos , hLogicGrease, "Grease", hLogicRead, false, hCheckOverlaps);
 	hPhysSiPM 	= new G4PVPlacement(0, SiPM_pos, hLogicSiPM, "SiPM", hLogicRead, false, hCheckOverlaps);
 
 	//! ? Surfaces
-
 	finish_print("CreateSiPM::Volumes");
 }
 
