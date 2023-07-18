@@ -33,7 +33,7 @@ class CreateSiPM
     public:
 		//? Constructor
 		CreateSiPM(G4String hName, double hReadSizeX, double hReadSizeY, double hReadSizeZ, double hFill);
-		CreateSiPM(G4String hName);
+		CreateSiPM(G4String hName, int hNTupla);
         virtual ~CreateSiPM();
 
 		//? Main function
@@ -53,6 +53,7 @@ class CreateSiPM
 		//? Basic infos
 		G4String hName;
 		double hFill;
+		int hNTupla;
 
 		//? Pointer to the universe
 		G4LogicalVolume * hLogicWorld;

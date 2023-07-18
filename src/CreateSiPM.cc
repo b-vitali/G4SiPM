@@ -12,9 +12,10 @@ CreateSiPM::CreateSiPM(G4String Name, double ReadSizeX, double ReadSizeY, double
     hFill = Fill;
 }
 
-CreateSiPM::CreateSiPM(G4String Name)
+CreateSiPM::CreateSiPM(G4String Name, int NTupla)
 {
     hName = Name;
+	hNTupla = NTupla;
 	hNTUpleCreated=false;
 }
 
@@ -191,7 +192,7 @@ void CreateSiPM::SD()
    	G4String SDname;
 
 	if(hLogicSiPM){
-		SiPMSD * SiPM_SD = new SiPMSD("SiPM");
+		SiPMSD * SiPM_SD = new SiPMSD(hName);
   		sdManager->AddNewDetector(SiPM_SD);
 		hLogicSiPM->SetSensitiveDetector(SiPM_SD);
 	}
@@ -204,7 +205,7 @@ void CreateSiPM::CreateNTuples(){
 	start_print("CreateSiPM::CreateNTuple");
 
 	if(!hNTUpleCreated){
-		tmp_sipm 	= new SiPMSD("SiPM",2);
+		tmp_sipm 	= new SiPMSD(hName,hNTupla);
 		hNTUpleCreated = true;
 	}
 
@@ -216,7 +217,7 @@ void CreateSiPM::FillNTuples(G4HCofThisEvent*HCE, const G4Event* event){
 
 	// Get a hold on the hit clollections in the G4SDManager
 	G4SDManager* SDMan = G4SDManager::GetSDMpointer();
-	fCollIDSiPM = SDMan->GetCollectionID("SiPM/sipmCollection");
+	fCollIDSiPM = SDMan->GetCollectionID(hName+"/sipmCollection");
 
 	// Instance of the G4AnalysisManager to write out
 	G4AnalysisManager *man = G4AnalysisManager::Instance();
@@ -229,7 +230,7 @@ void CreateSiPM::FillNTuples(G4HCofThisEvent*HCE, const G4Event* event){
 	G4int M = SiPMHitCollection->entries();
 	for(int i = 0; i < M; i++){
 		sipmHit = (*SiPMHitCollection)[i];
-		tmp_sipm->FillNtupla(man, sipmHit,2);
+		tmp_sipm->FillNtupla(man, sipmHit,hNTupla);
 		sipmHit->Clear();
 	}
 
