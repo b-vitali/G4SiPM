@@ -151,14 +151,14 @@ void CreateSiPM::Volumes()
 	hCheckOverlaps = true;
 
 	//? Read Solid and Phys.
-	hSiPMSizeX = hReadSizeX;
-	hSiPMSizeY = hReadSizeY;
+	hSiPMSizeX = hFill*hReadSizeX;
+	hSiPMSizeY = hFill*hReadSizeY;
 	hSiPMSizeZ = 0.5*hReadSizeZ;
 
 	// in
 	hSolidRead	= new G4Box("Read", 0.5*hReadSizeX, 0.5*hReadSizeY, 0.5*hReadSizeZ);
     hLogicRead = new G4LogicalVolume(hSolidRead, hSi, "Read");
-	hLogicRead->SetVisAttributes(G4Colour(1.0, 0.0, 1.0, 0.3));
+	hLogicRead->SetVisAttributes(G4Colour(1.0, 0.0, 1.0, 0.4));
 
 	// grease Solid and Phys.
 	hSolidGrease = new G4Box("Read", 0.5*hReadSizeX, 0.5*hReadSizeY,0.5 * 0.5*hReadSizeZ);
